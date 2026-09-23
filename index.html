@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>課堂遊戲</title>
+<title>小四數學科學 · 課堂遊戲</title>
 <style>
 :root{--paper:#FFFCEF;--ink:#24332E;--sand:#F5D878;--red:#E8413C;--blue:#2457E6;--card:#FFFFFF;--line:#24332E;--muted:#5B6862;--shadow:#D7CEB7}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#1B2622;--ink:#FFFCEF;--card:#24332E;--line:#F5D878;--muted:#C9CFC3;--shadow:#0F1614}}
@@ -21,9 +21,7 @@ h1{font-size:clamp(40px,9vw,64px);line-height:1.05;font-weight:1000;letter-spaci
 .rule dt{font-weight:900;color:var(--muted);letter-spacing:.05em;white-space:nowrap}
 .rule dd{margin:0;font-weight:700}
 .banks{display:grid;gap:8px;margin-top:auto}
-.bank{display:flex;justify-content:space-between;align-items:center;gap:8px;text-decoration:none;color:var(--ink);background:var(--sand);border:2.5px solid var(--line);border-radius:12px;padding:12px 14px;font-weight:900;font-size:16px;box-shadow:0 4px 0 var(--line);min-height:52px}
-:root[data-theme="dark"] .bank,:root:not([data-theme="light"]) .bank{color:#24332E}
-@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .bank{color:var(--ink)}}
+.bank{display:flex;justify-content:space-between;align-items:center;gap:8px;text-decoration:none;color:#24332E;background:var(--sand);border:2.5px solid var(--line);border-radius:12px;padding:12px 14px;font-weight:900;font-size:16px;box-shadow:0 4px 0 var(--line);min-height:52px}
 .bank:active{translate:0 3px;box-shadow:0 1px 0 var(--line)}
 .bank:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
 .bank-go{font-size:14px;opacity:.75;white-space:nowrap}
@@ -32,44 +30,44 @@ footer{margin-top:32px;text-align:center;font-size:13px;color:var(--muted);line-
 </style></head><body>
 <div class="wrap">
 <header>
-  <div class="eyebrow">中葡職業技術學校 · 電子白板</div>
+  <div class="eyebrow">小四數學 × 科學 · 電子白板</div>
   <h1>課堂遊戲</h1>
-  <p class="lede">教室分紅藍兩隊，同時作答同一道題；答對的一方在遊戲裡得到好處。先選遊戲，再選要考的題庫。</p>
+  <p class="lede">教室分紅藍兩隊，同時作答同一道題；答對的一方在遊戲裡得到好處。選一個遊戲開始。</p>
   <div class="teams"><span style="background:var(--red)">紅隊 · 左邊</span><span style="background:var(--blue)">藍隊 · 右邊</span></div>
 </header>
 <main class="grid">
 <article class="card">
   <h2>搶答拔河</h2>
   <dl class="rule"><dt>答對之後</dt><dd>拉繩子，推理題拉兩格</dd><dt>怎樣贏</dt><dd>繩結拉過線</dd></dl>
-  <div class="banks"><a class="bank silabas" href="silabas-tug.html"><span class="bank-name">葡語分音節 · Divisão silábica</span><span class="bank-go">開始 →</span></a><a class="bank timss" href="timss-tug.html"><span class="bank-name">小四數學 × 科學</span><span class="bank-go">開始 →</span></a></div>
+  <div class="banks"><a class="bank" href="timss-tug.html"><span class="bank-name">開始這個遊戲</span><span class="bank-go">開始 →</span></a></div>
 </article>
 <article class="card">
   <h2>立體井字</h2>
   <dl class="rule"><dt>答對之後</dt><dd>在 3×3×3 棋盤擺一子</dd><dt>怎樣贏</dt><dd>任何方向連成三個</dd></dl>
-  <div class="banks"><a class="bank silabas" href="silabas-tictac.html"><span class="bank-name">葡語分音節 · Divisão silábica</span><span class="bank-go">開始 →</span></a><a class="bank timss" href="timss-tictac.html"><span class="bank-name">小四數學 × 科學</span><span class="bank-go">開始 →</span></a></div>
+  <div class="banks"><a class="bank" href="timss-tictac.html"><span class="bank-name">開始這個遊戲</span><span class="bank-go">開始 →</span></a></div>
 </article>
 <article class="card">
   <h2>炸彈傳遞</h2>
   <dl class="rule"><dt>答對之後</dt><dd>把炸彈丟給對方</dd><dt>怎樣贏</dt><dd>引信燒完時炸彈不在你手上</dd></dl>
-  <div class="banks"><a class="bank silabas" href="silabas-bomb.html"><span class="bank-name">葡語分音節 · Divisão silábica</span><span class="bank-go">開始 →</span></a><a class="bank timss" href="timss-bomb.html"><span class="bank-name">小四數學 × 科學</span><span class="bank-go">開始 →</span></a></div>
+  <div class="banks"><a class="bank" href="timss-bomb.html"><span class="bank-name">開始這個遊戲</span><span class="bank-go">開始 →</span></a></div>
 </article>
 <article class="card">
   <h2>翻轉棋</h2>
   <dl class="rule"><dt>答對之後</dt><dd>下一子、翻對方的棋</dd><dt>怎樣贏</dt><dd>棋多者勝，或把對方全翻光</dd></dl>
-  <div class="banks"><a class="bank silabas" href="silabas-reversi.html"><span class="bank-name">葡語分音節 · Divisão silábica</span><span class="bank-go">開始 →</span></a><a class="bank timss" href="timss-reversi.html"><span class="bank-name">小四數學 × 科學</span><span class="bank-go">開始 →</span></a></div>
+  <div class="banks"><a class="bank" href="timss-reversi.html"><span class="bank-name">開始這個遊戲</span><span class="bank-go">開始 →</span></a></div>
 </article>
 <article class="card">
   <h2>賓果對決</h2>
   <dl class="rule"><dt>答對之後</dt><dd>叫一個號，推理題叫兩個</dd><dt>怎樣贏</dt><dd>自己的卡先連成一線</dd></dl>
-  <div class="banks"><a class="bank silabas" href="silabas-bingo.html"><span class="bank-name">葡語分音節 · Divisão silábica</span><span class="bank-go">開始 →</span></a><a class="bank timss" href="timss-bingo.html"><span class="bank-name">小四數學 × 科學</span><span class="bank-go">開始 →</span></a></div>
+  <div class="banks"><a class="bank" href="timss-bingo.html"><span class="bank-name">開始這個遊戲</span><span class="bank-go">開始 →</span></a></div>
 </article>
 <article class="card">
   <h2>蛇梯賽跑</h2>
   <dl class="rule"><dt>答對之後</dt><dd>擲骰前進，推理題擲兩顆</dd><dt>怎樣贏</dt><dd>先衝過終點</dd></dl>
-  <div class="banks"><a class="bank silabas" href="silabas-ladder.html"><span class="bank-name">葡語分音節 · Divisão silábica</span><span class="bank-go">開始 →</span></a><a class="bank timss" href="timss-ladder.html"><span class="bank-name">小四數學 × 科學</span><span class="bank-go">開始 →</span></a></div>
+  <div class="banks"><a class="bank" href="timss-ladder.html"><span class="bank-name">開始這個遊戲</span><span class="bank-go">開始 →</span></a></div>
 </article>
 </main>
-<footer>6 個遊戲 × 2 套題庫 · 遊戲頁按白板橫向設計，手機請橫放或用平板試玩<br>題庫： 葡語分音節 · Divisão silábica 434 題 · 小四數學 × 科學 120 題 <br>出過的題 14 天內不重出，紀錄存在這個瀏覽器</footer>
+<footer>6 個遊戲 · 遊戲頁按白板橫向設計，手機請橫放或用平板試玩<br>題庫：小四數學 × 科學 120 題<br>出過的題 14 天內不重出，紀錄存在這個瀏覽器</footer>
 </div>
 
 </body></html>
