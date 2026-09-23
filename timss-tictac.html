@@ -280,11 +280,15 @@ const BANK_ID = "timss";
     const chosen = [], chosenIds = new Set();
     const age = i => opts.recent.has(i.id) ? T.daysBetween(opts.recent.get(i.id), opts.today) : Infinity;
 
+    // 同一局裡不要重複考同一個詞（題目可帶 word 欄；沒有就不管）。軟性限制：沒別的可選才放寬
+    const chosenWords = new Set();
     // 從 list 取最多 count 題，只取「距上次出題超過 days 天」的；回傳實際取到的數目
     function take(list, count, days) {
       let got = 0;
       while (got < count) {
-        const cands = list.filter(i => !chosenIds.has(i.id) && (days < 0 || age(i) > days));
+        let cands = list.filter(i => !chosenIds.has(i.id) && (days < 0 || age(i) > days));
+        const fresh = cands.filter(i => !i.word || !chosenWords.has(i.word));
+        if (fresh.length) cands = fresh;
         if (!cands.length) break;
         // 先選剩餘預算最多的層次；同層次內選目前最少的題型
         const levels = Object.keys(levelBudget).filter(l => levelBudget[l] > 0 && cands.some(c => c.level === l))
@@ -296,13 +300,18 @@ const BANK_ID = "timss";
         const q = Object.assign({}, it, { repeat: age(it) <= 7 });
         if (q.repeat) notes.repeats++;
         chosen.push(q); chosenIds.add(it.id); typeCount[it.type]++;
+        if (it.word) chosenWords.add(it.word);
         if (levelBudget[it.level] > 0) levelBudget[it.level]--;
         got++;
       }
       return got;
     }
 
-    const tTarget = isHot ? Math.round(n * 0.7) : 0;
+    // 七成配額，但「熱門題」新鮮的（14 天內沒出過）太少時自動降低——學期初只教了兩三個主題，
+    // 硬要七成從幾題裡抽，每一局都是同一批；改成最多拿一半的新鮮熱門題，其餘交給全範圍
+    const hotFresh = isHot ? pool.filter(i => isHot(i) && age(i) > 14).length : 0;
+    const tTarget = isHot ? Math.min(Math.round(n * 0.7), Math.max(0, Math.floor(hotFresh / 2))) : 0;
+    notes.hotTarget = tTarget;
     const inT = isHot ? pool.filter(isHot) : [], outT = isHot ? pool.filter(i => !isHot(i)) : pool;
     const tGot = () => isHot ? chosen.filter(isHot).length : 0;
     for (const days of [14, 7, -1]) {
@@ -974,17 +983,20 @@ const BANK_ID = "timss";
   const orderedTopics = [...new Set(bank.map(i => i.topic))].sort();
   {
     const n = bank.length, g = meta.groupKey;
-    $("bankinfo").textContent = g
+    // 「已出過」只算這個瀏覽器的紀錄：換一部機、換一個網址就是另一份記憶
+    const asked = R.recentMap().size;
+    $("bankinfo").textContent = (g
       ? `題庫 ${n} 題（` + (meta.groups || []).map(v => `${v} ${bank.filter(i => i[g] === v).length}`).join("、") + "）"
-      : `題庫 ${n} 題 · ${orderedTopics.length} 個${meta.topicLabel || "單元"}`;
+      : `題庫 ${n} 題 · ${orderedTopics.length} 個${meta.topicLabel || "單元"}`)
+      + ` · 這個瀏覽器已出過 ${asked} 題（14 天內不重出）`;
   }
   {
     const sel = $("scope"), modes = meta.scopes || ["all"], label = meta.topicLabel || "單元";
     const add = (v, t) => { const o = document.createElement("option"); o.value = v; o.textContent = t; sel.appendChild(o); };
     if (modes.includes("taught")) {
       const ts = taughtSet(T.todayStr());
-      add("taught", "跟進度（七成已教、三成全範圍）");
-      $("startNote").textContent = ts.size ? `已教${label} ${ts.size} 個（依課表，${T.todayStr()}）`
+      add("taught", "跟進度（已教為主、其餘全範圍）");
+      $("startNote").textContent = ts.size ? `已教${label} ${ts.size} 個、${bank.filter(i => ts.has(i.topic)).length} 題（依課表，${T.todayStr()}）`
                                            : "學期尚未開始，「跟進度」會自動改為全範圍";
     }
     add("all", `全部${label}`);
